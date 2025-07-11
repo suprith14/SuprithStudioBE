@@ -8,7 +8,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
+    // origin: 'http://localhost:5173', // Your frontend URL
+    origin: 'https://your-frontend.vercel.app', // Your frontend URL
     credentials: true, // If you're using cookies/sessions
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
