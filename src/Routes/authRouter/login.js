@@ -18,7 +18,7 @@ authloginRouter.get("/login", async (req, res) => {
       return res.status(400).json({ status:400,error: "Password is incorrect" });
     }
     // If user exists and password matches, return user data
-    console.log("User logged in successfully", user);
+    console.log("User logged in successfully", user.email);
     res.status(200).json({status:200,data:user});
   } catch (err) {
     console.log("Error in login", err.message);

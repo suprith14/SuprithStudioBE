@@ -3,9 +3,6 @@ const express = require('express');
 const User = require('../../Models/user');
 const authRouter = express.Router();
 
-
-
-
 authRouter.post('/signup',async(req,res)=>{
     try{
         const {name, email, password, confirmPassword, phone} = req.body;// Destructure request body
