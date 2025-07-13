@@ -7,14 +7,27 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({
-    // origin: 'http://localhost:5173', // Your frontend URL
-    // origin: 'https://your-frontend.vercel.app', // Your frontend URL
-    origin: 'https://suprith-studio-fe.vercel.app', // Your frontend URL
-    credentials: true, // If you're using cookies/sessions
+const allowedOrigins = [
+  'http://localhost:4173',                         // vite preview
+  'http://localhost:5173',                         // vite dev server
+  'https://suprith-studio-fe.vercel.app'           // your production frontend
+];
 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+app.use(cors({
+  // origin: 'http://localhost:5173', // Your frontend URL
+  // origin: 'https://your-frontend.vercel.app', // Your frontend URL
+  // origin: 'https://suprith-studio-fe.vercel.app', // Your frontend URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // If you're using cookies/sessions
+
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json()); // Parse JSON bodies
@@ -30,8 +43,8 @@ const UserDetailsRouter = require("./src/Routes/userDetails")
 app.use('/', authRouter); // Use the authRouter for authentication routes
 app.use('/', authloginRouter); // Use the authloginRouter for login routes
 app.use('/', techStackRouter); // Use the authloginRouter for login routes
-app.use('/',featurfeRouter);
-app.use('/',UserDetailsRouter);
+app.use('/', featurfeRouter);
+app.use('/', UserDetailsRouter);
 
 
 
