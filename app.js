@@ -34,6 +34,10 @@ app.use(cors());
 
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 
 
 
